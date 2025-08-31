@@ -7,16 +7,20 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    tsConfigPaths(),
-    tanstackRouter({ autoCodeSplitting: true }),
-    viteReact(),
-    tailwindcss(),
-    cloudflare(),
-  ],
-  server: {
-    watch: {
-      ignored: ["**/.wrangler/state/**"],
-    },
-  },
+	plugins: [
+		tsConfigPaths(),
+		tanstackRouter({ autoCodeSplitting: true }),
+		viteReact(),
+		tailwindcss(),
+		cloudflare({
+			experimental: {
+				remoteBindings: true,
+			},
+		}),
+	],
+	server: {
+		watch: {
+			ignored: ["**/.wrangler/state/**"],
+		},
+	},
 });
