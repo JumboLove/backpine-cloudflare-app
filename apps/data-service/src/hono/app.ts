@@ -1,4 +1,4 @@
-import { getDestinationForCountry } from '@/helpers/route-ops';
+import { getDestinationForCountry, getRoutingDestinations } from '@/helpers/route-ops';
 import { getLink } from '@repo/data-ops/queries/links';
 import { cloudflareInfoSchema } from '@repo/data-ops/zod-schema/links';
 import { Hono } from 'hono';
@@ -7,7 +7,7 @@ export const App = new Hono<{ Bindings: Env }>();
 
 App.get('/:id', async (c) => {
 	const { id } = c.req.param();
-	const linkInfo = await getLink(id);
+	const linkInfo = await getRoutingDestinations(c.env, id);
 
 	if (!linkInfo) {
 		return c.text('Destination not found', 404);
